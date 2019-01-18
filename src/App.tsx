@@ -1,12 +1,20 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { MuiThemeProvider } from "@material-ui/core";
+
+import logo from "./logo.svg";
+import "./App.css";
+
+import DiscoveryTheme from "./styles/discovery.theme";
+import { AuthenticationState, AuthService } from "./services/auth.service";
+
+import Auth from "./components/auth/auth.component";
+
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
+        {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.tsx</code> and save to reload.
@@ -19,7 +27,10 @@ class App extends Component {
           >
             Learn React
           </a>
-        </header>
+        </header> */}
+        <MuiThemeProvider theme={DiscoveryTheme}>
+        <Auth />
+      </MuiThemeProvider>
       </div>
     );
   }
