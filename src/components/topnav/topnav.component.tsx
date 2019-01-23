@@ -36,6 +36,9 @@ const styles = (theme: Theme) => ({
   grow: {
     flexGrow: 1
   },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1
+  },
   // menuButton: {
   //   marginLeft: -12,
   //   marginRight: 20
@@ -48,6 +51,7 @@ const styles = (theme: Theme) => ({
   },
   search: {
     position: "relative" as "relative",
+    flexGrow: 1,
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     "&:hover": {
@@ -101,7 +105,8 @@ const styles = (theme: Theme) => ({
     margin: theme.spacing.unit
   },
   textField: {
-    flexBasis: 200
+    flexBasis: 200,
+    minWidth: "50%"
   }
 });
 
@@ -213,7 +218,7 @@ class TopNav extends Component<TopNavProps> {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             {/* <IconButton
               className={classes.menuButton}
@@ -256,7 +261,7 @@ class TopNav extends Component<TopNavProps> {
                 <SearchIcon />
               </InputBase> */}
             </div>
-            <div className={classes.grow} />
+            {/* <div className={classes.grow} /> */}
             <div className={classes.sectionDesktop}>
               {/* <IconButton color="inherit">
                 <Badge badgeContent={4} color="secondary">

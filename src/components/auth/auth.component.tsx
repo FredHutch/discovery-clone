@@ -1,5 +1,5 @@
 import React, { Component, useRef, useState } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import { AuthenticationState, AuthService } from "../../services/auth.service";
 
@@ -7,12 +7,23 @@ import Home from "../home/home.component";
 import TopNav from "../topnav/topnav.component";
 import Loading from "../loading/loading.component";
 import Profile from "../profile/profile.component";
+import Facets from "../facets/facets.componets";
+
+import { CssBaseline, Theme, withStyles } from "@material-ui/core";
 
 interface IAuthState {
   authState: AuthenticationState;
 }
 
-export default class Authenticate extends Component<{}, IAuthState> {
+const styles = (theme: Theme) => ({
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing.unit * 3
+  },
+  toolbar: theme.mixins.toolbar
+});
+
+class Authenticate extends Component<any, IAuthState> {
   authService: AuthService;
 
   constructor(props: any) {
@@ -52,15 +63,24 @@ export default class Authenticate extends Component<{}, IAuthState> {
 
   render() {
     const accessToken = sessionStorage.getItem("access_token");
+    const { classes } = this.props;
 
     if (this.state && this.state.authState == AuthenticationState.Authenticated)
       return (
         <React.Fragment>
           <Router>
             <React.Fragment>
-              <TopNav />
-              <Route exact path="/" component={Home} />
-              <Route path="/profile" component={Profile} />
+              <CssBaseline />
+              <div>
+                <TopNav />
+              </div>
+              <div>
+                <Facets />
+                <main className={classes.content}>
+                  <Route exact path="/" component={Home} />
+                  <Route path="/profile" component={Profile} />
+                </main>
+              </div>
             </React.Fragment>
           </Router>
         </React.Fragment>
@@ -68,3 +88,5 @@ export default class Authenticate extends Component<{}, IAuthState> {
     else return <Loading />;
   }
 }
+
+export default withStyles(styles)(Authenticate);
