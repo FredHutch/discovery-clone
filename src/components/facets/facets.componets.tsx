@@ -15,6 +15,7 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 
 import DataService from "../../services/data.service";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const drawerWidth = 240;
 
@@ -69,29 +70,39 @@ class Facets extends Component<any, IState> {
     });
   }
 
-  prepareFacets(key: string){
-    if(this.state.facets && key in this.state.facets){
-      var result = this.state.facets[key]["data_source.keyword"].buckets.map((item: any) => {
-        return (
-          <ListItem button key={item.key}>
-          {/* <ListItemIcon>
+  prepareFacets(key: string) {
+    if (this.state.facets && key in this.state.facets) {
+      var result = this.state.facets[key]["data_source.keyword"].buckets.map(
+        (item: any) => {
+          return (
+            <ListItem key={item.key}>
+              {/* <ListItemIcon>
             {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
           </ListItemIcon> */}
-          <ListItemText primary={item.key + item.doc_count} />
-        </ListItem>
+              <Checkbox
+                //checked={dense}
+                // onChange={event =>
+                //   this.setState({ dense: event.target.checked })
+                // }
+                value="dense"
+              />
+              {/* <ListItemText primary={item.key} /> */}
+              <Typography className="body2">{item.key} ({item.doc_count})</Typography>
+            </ListItem>
           );
-      });
+        }
+      );
 
       return result;
     }
 
-    return <div></div>;
+    return <div />;
   }
 
   render() {
     const { classes } = this.props;
 
-    const sourceFacets = this.prepareFacets('source');
+    const sourceFacets = this.prepareFacets("source");
 
     return (
       // <div className={classes.root}>
